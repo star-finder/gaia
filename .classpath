@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main"/>
+	<classpathentry kind="src" path="src/examples"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jpf-core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jpf-symbc"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/starlib"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jpf-star"/>
+	<classpathentry kind="lib" path="lib/modelcounting.jar"/>
+	<classpathentry kind="output" path="build"/>
+</classpath>
