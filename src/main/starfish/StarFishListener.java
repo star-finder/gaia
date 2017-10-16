@@ -15,21 +15,44 @@ import gov.nasa.jpf.vm.VM;
 import star.StarChoiceGenerator;
 import star.bytecode.BytecodeUtils;
 import starfish.counting.ArithmeticExtractor;
+import starfish.counting.ModelCounter;
 import starlib.formula.Formula;
 
 public class StarFishListener extends PropertyListenerAdapter {
 
-	boolean DEBUG = true;
+	private boolean first = true;
+	private boolean DEBUG = true;
+	private Config conf;
+	private ClassInfo ci;
+	private MethodInfo mi;
 	
 	public StarFishListener(Config conf, JPF jpf) {
 		jpf.getReporter().getPublishers().clear();
+		conf.setProperty("search.multiple_errors","true");
+		this.conf = conf;
 	}
 	@Override
 	public void instructionExecuted(VM vm, ThreadInfo currentThread, Instruction nextInstruction,
 			Instruction executedInstruction) {
 		if (!vm.getSystemState().isIgnored()) {
 			Config conf = vm.getConfig();
-			if (executedInstruction instanceof JVMReturnInstruction) {
+			if (first) {
+				MethodInfo mi = executedInstruction.getMethodInfo();
+				ClassInfo ci = mi.getClassInfo();
+				if (ci != null) {
+					String className = ci.getName();
+					String methodName = mi.getName();
+					int numberOfArgs = mi.getNumberOfArguments();
+
+					boolean isClassSymbolic = BytecodeUtils.isClassSymbolic(conf, className, mi, methodName);
+					boolean isMethodSymbolic = BytecodeUtils.isMethodSymbolic(conf, mi.getFullName(), numberOfArgs, null);
+					if (isClassSymbolic || isMethodSymbolic) {
+						this.ci = ci;
+						this.mi = mi;
+						first = false;
+					}
+				}
+			} else if (executedInstruction instanceof JVMReturnInstruction) {
 				MethodInfo mi = executedInstruction.getMethodInfo();
 				ClassInfo ci = mi.getClassInfo();
 				if (ci != null) {
@@ -60,6 +83,7 @@ public class StarFishListener extends PropertyListenerAdapter {
 								System.out.println("-------------------");
 								formula.accept(extractor);
 								System.out.println(extractor.getArithmeticConstraints());
+								ModelCounter.countSinglePath(formula, ci, mi);
 								System.out.println("------------------------------------------");
 
 							}
@@ -94,10 +118,14 @@ public class StarFishListener extends PropertyListenerAdapter {
 					System.out.println("-------------------");
 					formula.accept(extractor);
 					System.out.println(extractor.getArithmeticConstraints());
+					ModelCounter.countSinglePath(formula, ci, mi);
 					System.out.println("------------------------------------------");
-
 				}
 			}
 		//}
+	}
+
+	@Override
+	public void searchFinished(Search search) {
 	}
 }
