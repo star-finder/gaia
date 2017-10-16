@@ -3,7 +3,6 @@ package starfish.counting;
 import starlib.StarVisitor;
 import starlib.formula.Formula;
 import starlib.formula.PureFormula;
-import starlib.formula.heap.HeapTerm;
 import starlib.formula.pure.ComparisonTerm;
 import starlib.formula.pure.EqTerm;
 import starlib.formula.pure.NEqTerm;
