@@ -22,13 +22,11 @@ public class StarFishListener extends PropertyListenerAdapter {
 
 	private boolean first = true;
 	private boolean DEBUG = true;
-	private Config conf;
 	private ModelCounter mc;
 	
 	public StarFishListener(Config conf, JPF jpf) {
 		jpf.getReporter().getPublishers().clear();
 		conf.setProperty("search.multiple_errors","true");
-		this.conf = conf;
 		mc = new ModelCounter(conf);
 	}
 	@Override
@@ -126,5 +124,6 @@ public class StarFishListener extends PropertyListenerAdapter {
 
 	@Override
 	public void searchFinished(Search search) {
+		//TODO
 	}
 }
