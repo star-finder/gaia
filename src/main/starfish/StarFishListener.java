@@ -23,13 +23,13 @@ public class StarFishListener extends PropertyListenerAdapter {
 	private boolean first = true;
 	private boolean DEBUG = true;
 	private Config conf;
-	private ClassInfo ci;
-	private MethodInfo mi;
+	private ModelCounter mc;
 	
 	public StarFishListener(Config conf, JPF jpf) {
 		jpf.getReporter().getPublishers().clear();
 		conf.setProperty("search.multiple_errors","true");
 		this.conf = conf;
+		mc = new ModelCounter(conf);
 	}
 	@Override
 	public void instructionExecuted(VM vm, ThreadInfo currentThread, Instruction nextInstruction,
@@ -47,8 +47,7 @@ public class StarFishListener extends PropertyListenerAdapter {
 					boolean isClassSymbolic = BytecodeUtils.isClassSymbolic(conf, className, mi, methodName);
 					boolean isMethodSymbolic = BytecodeUtils.isMethodSymbolic(conf, mi.getFullName(), numberOfArgs, null);
 					if (isClassSymbolic || isMethodSymbolic) {
-						this.ci = ci;
-						this.mi = mi;
+						mc.setClassAndMethoInfo(ci, mi);
 						first = false;
 					}
 				}
@@ -83,7 +82,7 @@ public class StarFishListener extends PropertyListenerAdapter {
 								System.out.println("-------------------");
 								formula.accept(extractor);
 								System.out.println(extractor.getArithmeticConstraints());
-								ModelCounter.countSinglePath(formula, ci, mi);
+								mc.countSinglePath(formula);
 								System.out.println("------------------------------------------");
 
 							}
@@ -118,7 +117,7 @@ public class StarFishListener extends PropertyListenerAdapter {
 					System.out.println("-------------------");
 					formula.accept(extractor);
 					System.out.println(extractor.getArithmeticConstraints());
-					ModelCounter.countSinglePath(formula, ci, mi);
+					mc.countSinglePath(formula);
 					System.out.println("------------------------------------------");
 				}
 			}
