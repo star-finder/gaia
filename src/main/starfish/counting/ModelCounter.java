@@ -45,7 +45,6 @@ public class ModelCounter {
 	}
 
 	public BigInteger countSinglePath(Formula formula) {
-		BigInteger result = new BigInteger("-1");
 		HashMap<String, String> knownTypeVars = PathFinderUtils.initTypeVarMap(ci, mi);
 		
 		// Collect all symbolic variables
@@ -61,8 +60,12 @@ public class ModelCounter {
 		ArithmeticExtractor extractor = new ArithmeticExtractor();
 		formula.accept(extractor);
 		String pc = extractor.getArithmeticConstraints();
+		if(pc.length() == 0){
+			return countSimple(vars);
+		}
 		
-		// Create user profile, then count
+		// PC is not empty. Count using barvinok
+		BigInteger result = new BigInteger("-1");
 		try {
 			File problem = FileUtils.writeToFile(createUserProfileString(vars));
 			problemSettings = ProblemSetting.loadFromFile(problem.getAbsolutePath());
@@ -73,6 +76,17 @@ public class ModelCounter {
 			analyzerBarvinok.terminate();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		return result;
+	}
+
+	protected BigInteger countSimple(ArrayList<String> vars){
+		BigInteger result = new BigInteger("1");
+		BigInteger MIN = new BigInteger(conf.getProperty("symbolic.min_int", String.valueOf(Integer.MIN_VALUE)));
+		BigInteger MAX = new BigInteger(conf.getProperty("symbolic.max_int", String.valueOf(Integer.MAX_VALUE)));
+		BigInteger range = MAX.subtract(MIN).add(result); // Actually we want 1 instead of result
+		for(String var : vars) {
+			result = result.multiply(range);
 		}
 		return result;
 	}
