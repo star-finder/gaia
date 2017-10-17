@@ -71,6 +71,9 @@
 
 
     <available file="src/main"        type="dir" property="have_main"/>
+    <available file="src/classes"     type="dir" property="have_classes"/>
+    <available file="src/peers"       type="dir" property="have_peers"/>
+    <available file="src/examples"    type="dir" property="have_examples"/>
 
     <!-- optionally set the required artifacts here
     <fail unless="have_main">no src/main</fail>
@@ -82,7 +85,7 @@
   <!-- ======================= COMPILE SECTION ============================= -->
 
   <!-- public compile -->
-  <target name="compile" depends="-init,-compile-main"
+  <target name="compile" depends="-init,-compile-main,-compile-classes,-compile-peers,-compile-examples"
           description="compile all sources" >
   </target>
 
@@ -93,16 +96,53 @@
            classpathref="lib.path"/>
   </target>
 
+  <target name="-compile-classes" if="have_classes" depends="-compile-main" >
+    <mkdir dir="build/classes"/>
+    <javac srcdir="src/classes" destdir="build/classes"
+           debug="${debug}" source="${src_level}" deprecation="${deprecation}"
+           includeantruntime="false">
+      <classpath>
+          <path refid="lib.path"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="-compile-peers" if="have_peers" depends="-compile-main" >
+    <mkdir dir="build/peers"/>
+    <javac srcdir="src/peers" destdir="build/peers"
+           debug="${debug}" source="${src_level}" deprecation="${deprecation}"
+	   classpathref="lib.path"
+	   includeantruntime="false"/>
+  </target>
+
+  <target name="-compile-examples" if="have_examples" depends="-compile-main,-compile-classes" >
+    <mkdir dir="build/examples" />
+    <javac srcdir="src/examples" destdir="build/examples"
+           debug="${debug}" source="${src_level}" deprecation="${deprecation}"
+	   includeantruntime="false">
+      <classpath>
+	   <path refid="lib.path"/>
+	   <pathelement location="build/classes"/>
+      </classpath>
+    </javac>
+  </target>
+
   <!-- ======================= MISC SECTION ================================ -->
 
   <!-- build jars -->
-  <target name="build" depends="compile,-jar-fish"
+  <target name="build" depends="compile,-jar-fish,-jar-class"
         description="generate the ${ant.project.name} jar files" >
   </target>
 
   <target name="-jar-fish">
     <jar jarfile="build/${ant.project.name}.jar" whenmanifestonly="skip">
       <fileset dir="build/main" erroronmissingdir="false"/>
+    </jar>
+  </target>
+
+  <target name="-jar-class" if="have_jpf_code">
+    <jar jarfile="build/${ant.project.name}-classes.jar">
+      <fileset dir="build/classes"/> 
     </jar>
   </target>
 

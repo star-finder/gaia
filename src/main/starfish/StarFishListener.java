@@ -80,7 +80,7 @@ public class StarFishListener extends PropertyListenerAdapter {
 								System.out.println("-------------------");
 								formula.accept(extractor);
 								System.out.println(extractor.getArithmeticConstraints());
-								mc.countSinglePath(formula);
+								System.out.println("Number of models is " + mc.countSinglePath(formula));
 								System.out.println("------------------------------------------");
 
 							}
@@ -115,7 +115,7 @@ public class StarFishListener extends PropertyListenerAdapter {
 					System.out.println("-------------------");
 					formula.accept(extractor);
 					System.out.println(extractor.getArithmeticConstraints());
-					mc.countSinglePath(formula);
+					System.out.println("Number of models is" + mc.countSinglePath(formula));
 					System.out.println("------------------------------------------");
 				}
 			}

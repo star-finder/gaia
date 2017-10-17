@@ -16,5 +16,11 @@ star.test_path=src/output/spin15
 star.test_package=spin15
 star.test_imports=spin15.*;common.Utilities
 
+star.tmpDir=build/tmp
+star.barvinokPath=${starfish}/tools/barvinok/bin/iscc
+
+symbolic.max_int = 10
+symbolic.min_int = 1
+
 symbolic.fields=instance
 symbolic.lazy=true
