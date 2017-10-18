@@ -149,7 +149,7 @@
     </jar>
   </target>
 
-  <target name="-jar-class" if="have_jpf_code">
+  <target name="-jar-class">
     <jar jarfile="build/${ant.project.name}-classes.jar">
       <fileset dir="build/classes"/> 
     </jar>

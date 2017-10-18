@@ -10,5 +10,15 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/starlib"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jpf-star"/>
 	<classpathentry kind="lib" path="lib/modelcounting.jar"/>
+	<classpathentry kind="lib" path="lib/antlr-4.7-complete.jar"/>
+	<classpathentry kind="lib" path="lib/collections-generic-4.01.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-jcs-core-2.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/guava-19.0.jar"/>
+	<classpathentry kind="lib" path="lib/guice-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/javax.inject.jar"/>
+	<classpathentry kind="lib" path="lib/jung-algorithms-2.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/jung-api-2.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/jung-graph-impl-2.0.1.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>
