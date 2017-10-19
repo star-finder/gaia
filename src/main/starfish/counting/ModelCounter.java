@@ -67,8 +67,9 @@ public class ModelCounter {
 		// PC is not empty. Count using barvinok
 		BigInteger result = new BigInteger("-1");
 		try {
-			File problem = FileUtils.writeToFile(createUserProfileString(vars));
-			problemSettings = ProblemSetting.loadFromFile(problem.getAbsolutePath());
+			//File problem = FileUtils.writeToFile(createUserProfileString(vars));
+			// problemSettings = ProblemSetting.loadFromFile(problem.getAbsolutePath());
+			problemSettings = ProblemSetting.loadFromString(createUserProfileString(vars));
 			SequentialAnalyzerBarvinok	analyzerBarvinok = new SequentialAnalyzerBarvinok(configuration,
 					problemSettings.getDomain(),
 					problemSettings.getUsageProfile(), 1);
