@@ -1,4 +1,4 @@
-package starfish.counting;
+package gaia.counting;
 
 import java.io.File;
 import java.math.BigInteger;
@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import gaia.util.FileUtils;
 import gov.nasa.jpf.Config;
 import gov.nasa.jpf.vm.ClassInfo;
 import gov.nasa.jpf.vm.MethodInfo;
 import modelcounting.analysis.SequentialAnalyzerBarvinok;
 import modelcounting.domain.ProblemSetting;
 import modelcounting.utils.Configuration;
-import starfish.util.FileUtils;
 import starlib.formula.Formula;
 import starlib.jpf.PathFinderUtils;
 

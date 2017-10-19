@@ -5,7 +5,7 @@ sourcepath=${starfish}/src/examples
 
 shell=star.StarShell
 symbolic.method=spin15.Node.swapNode()
-listener=starfish.StarFishListener
+listener=gaia.GaiaListener
 
 star.data=data Node {int elem; Node next}
 star.predicate=pred sll(a) == a=null || a::Node<elem1,next1> * sll(next1)

@@ -1,5 +1,7 @@
-package starfish;
+package gaia;
 
+import gaia.counting.ArithmeticExtractor;
+import gaia.counting.ModelCounter;
 import gov.nasa.jpf.Config;
 import gov.nasa.jpf.JPF;
 import gov.nasa.jpf.PropertyListenerAdapter;
@@ -14,17 +16,15 @@ import gov.nasa.jpf.vm.ThreadInfo;
 import gov.nasa.jpf.vm.VM;
 import star.StarChoiceGenerator;
 import star.bytecode.BytecodeUtils;
-import starfish.counting.ArithmeticExtractor;
-import starfish.counting.ModelCounter;
 import starlib.formula.Formula;
 
-public class StarFishListener extends PropertyListenerAdapter {
+public class GaiaListener extends PropertyListenerAdapter {
 
 	private boolean first = true;
 	private boolean DEBUG = true;
 	private ModelCounter mc;
 	
-	public StarFishListener(Config conf, JPF jpf) {
+	public GaiaListener(Config conf, JPF jpf) {
 		jpf.getReporter().getPublishers().clear();
 		conf.setProperty("search.multiple_errors","true");
 		mc = new ModelCounter(conf);

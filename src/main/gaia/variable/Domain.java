@@ -1,4 +1,4 @@
-package starfish.variable;
+package gaia.variable;
 
 public class Domain {
 	public int min;

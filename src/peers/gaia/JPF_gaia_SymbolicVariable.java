@@ -1,13 +1,13 @@
-package starfish;
+package gaia;
 
+import gaia.variable.Domain;
+import gaia.variable.GlobalVariables;
 import gov.nasa.jpf.annotation.MJI;
 import gov.nasa.jpf.symbc.numeric.IntegerExpression;
 import gov.nasa.jpf.vm.MJIEnv;
 import gov.nasa.jpf.vm.NativePeer;
-import starfish.variable.Domain;
-import starfish.variable.GlobalVariables;
 
-public class JPF_starfish_SymbolicVariable extends NativePeer {
+public class JPF_gaia_SymbolicVariable extends NativePeer {
 
 	@MJI
 	public static void setMinMax__III__V(MJIEnv env, int objRef, int var, int min, int max){

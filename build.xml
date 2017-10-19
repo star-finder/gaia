@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<project name="starfish" default="build" basedir=".">
+<project name="gaia" default="build" basedir=".">
 
   <!-- ========================== COMMON SECTION ========================== -->
 

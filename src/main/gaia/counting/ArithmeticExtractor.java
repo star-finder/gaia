@@ -1,4 +1,4 @@
-package starfish.counting;
+package gaia.counting;
 
 import starlib.StarVisitor;
 import starlib.formula.Formula;
