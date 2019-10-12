@@ -1,7 +1,7 @@
 target=spin15.Node
 
-classpath=${starfish}/build/examples;
-sourcepath=${starfish}/src/examples
+classpath=${gaia}/build/examples;
+sourcepath=${gaia}/src/examples
 
 shell=star.StarShell
 symbolic.method=spin15.Node.swapNode()
@@ -17,7 +17,7 @@ star.test_package=spin15
 star.test_imports=spin15.*;common.Utilities
 
 star.tmpDir=build/tmp
-star.barvinokPath=${starfish}/tools/barvinok/bin/iscc
+star.barvinokPath=${gaia}/tools/barvinok/bin/iscc
 
 symbolic.max_int = 10
 symbolic.min_int = 1
