@@ -14,7 +14,7 @@ $ cd /home/qsphan/programs/src
 $ wget https://gmplib.org/download/gmp/gmp-6.1.0.tar.xz
 $ tar xf gmp-6.1.0.tar.xz
 $ cd gmp-6.1.0
-$ ./configure PREFIX=/home/qsphan/programs/bin
+$ ./configure --prefix=/home/qsphan/programs/bin
 ```
 If `m4` is missing, install it `sudo apt-get install m4`. Then
 ```
@@ -29,6 +29,8 @@ $ wget https://shoup.net/ntl/ntl-11.4.1.tar.gz
 $ tar xf ntl-11.4.1.tar.gz
 $ cd ntl-11.4.1/src
 $ ./configure NTL_GMP_LIP=on NTL_STD_CXX11=on PREFIX=/home/qsphan/programs/bin GMP_PREFIX=/home/qsphan/programs/bin
+$ make
+$ make install
 ```
 ### Install barvinok
 ```
