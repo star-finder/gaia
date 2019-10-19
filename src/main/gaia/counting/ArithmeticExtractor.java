@@ -1,8 +1,12 @@
 package gaia.counting;
 
+import java.util.Set;
+
 import starlib.StarVisitor;
 import starlib.formula.Formula;
 import starlib.formula.PureFormula;
+import starlib.formula.Variable;
+import starlib.formula.expression.Expression;
 import starlib.formula.pure.ComparisonTerm;
 import starlib.formula.pure.EqTerm;
 import starlib.formula.pure.NEqTerm;
@@ -43,14 +47,38 @@ public class ArithmeticExtractor extends StarVisitor {
 					sb.append(pureTerms[length - 1]);
 				} else if (count > 0) {
 					int len = sb.length();
-					sb.delete(len - 4, len);
+					sb.delete(len - 4, len); // delete the last " &&\n"
 				}
 			}
 		}
 	}
-	public boolean isNumericalConstraint(PureTerm term) {
-		return term instanceof ComparisonTerm || term instanceof EqTerm
-				|| term instanceof NEqTerm;
+
+	protected boolean isNumericalConstraint(PureTerm term) {
+		if(term instanceof EqTerm || term instanceof NEqTerm) {
+			// Deprecated terms should not appear
+			assert false;
+		}
+		if (term instanceof ComparisonTerm) {
+			ComparisonTerm compTerm = (ComparisonTerm) term;
+			Expression exp1 = compTerm.getExp1();
+			Expression exp2 = compTerm.getExp2();
+			return hasNumericVariable(exp1) || hasNumericVariable(exp2);
+		}
+	    return false;
+	}
+
+	protected boolean hasNumericVariable(Expression exp) {
+		Set<Variable> vars = exp.getVars();
+		if(vars.isEmpty()) {
+			return false;
+		}
+		for(Variable var : vars) {
+			// TODO: generalize to all numeric types ???
+			if(var.getType().equals("int")) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public String getArithmeticConstraints() {

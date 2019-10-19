@@ -1,12 +1,10 @@
 package gaia.counting;
 
-import java.io.File;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import gaia.util.FileUtils;
 import gov.nasa.jpf.Config;
 import gov.nasa.jpf.vm.ClassInfo;
 import gov.nasa.jpf.vm.MethodInfo;
@@ -14,6 +12,7 @@ import modelcounting.analysis.SequentialAnalyzerBarvinok;
 import modelcounting.domain.ProblemSetting;
 import modelcounting.utils.Configuration;
 import starlib.formula.Formula;
+import starlib.formula.PureFormula;
 import starlib.jpf.PathFinderUtils;
 
 public class ModelCounter {
@@ -58,7 +57,7 @@ public class ModelCounter {
 		
 		// Get the numeric part of the path condition
 		ArithmeticExtractor extractor = new ArithmeticExtractor();
-		formula.accept(extractor);
+		formula.getPureFormula().accept(extractor);
 		String pc = extractor.getArithmeticConstraints();
 		if(pc.length() == 0){
 			return countSimple(vars);
@@ -86,7 +85,7 @@ public class ModelCounter {
 		BigInteger MIN = new BigInteger(conf.getProperty("symbolic.min_int", String.valueOf(Integer.MIN_VALUE)));
 		BigInteger MAX = new BigInteger(conf.getProperty("symbolic.max_int", String.valueOf(Integer.MAX_VALUE)));
 		BigInteger range = MAX.subtract(MIN).add(result); // Actually we want 1 instead of result
-		for(String var : vars) {
+		for(int i = 0; i < vars.size(); ++i) {
 			result = result.multiply(range);
 		}
 		return result;
